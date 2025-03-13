@@ -86,7 +86,7 @@ docker-compose up --build
 Esse comando irá:
 
 Construir a imagem Docker da aplicação usando o Dockerfile.
-Criar e iniciar os containers para os serviços necessários: MongoDB, Redis e RabbitMQ.
+Criar e iniciar os containers para os serviços necessários: MongoDB, Redis e RabbitMQ.README
 
 ### 4. Testar os endpoints
 A API estará disponível em `http://localhost:3000`, deixarei um arquivo na raiz do projeto com o JSON para ser importado no postman
