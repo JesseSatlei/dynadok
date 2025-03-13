@@ -1,35 +1,46 @@
 import { Client } from '../../domain/entities/Client';
-import { ClientRepository } from '../../infrastructure/database/ClientRepository';
+import { MongoClientRepository } from '../../infrastructure/database/MongoClientRepository';
 
 export class ClientUseCase {
-  private clientRepository: ClientRepository;
+  private mongoClientRepository: MongoClientRepository;
 
-  constructor() {
-    this.clientRepository = new ClientRepository();
+  constructor(mongoClientRepository?: MongoClientRepository) {
+    this.mongoClientRepository = mongoClientRepository ?? new MongoClientRepository();
   }
 
   async create(name: string, email: string, phone: string): Promise<Client> {
-    const existingClient = await this.clientRepository.findByEmail(email);
+    const existingClient = await this.mongoClientRepository.findByEmail(email);
     if (existingClient) {
       throw new Error('E-mail já cadastrado.');
     }
+
     const client = new Client(name, email, phone);
-    return this.clientRepository.create(client);
+    return this.mongoClientRepository.create(client);
   }
 
   async update(id: string, data: Partial<Client>): Promise<Client | null> {
-    return this.clientRepository.update(id, data);
+    const existingClient = await this.mongoClientRepository.findById(id);
+    if (!existingClient) {
+      throw new Error('Cliente não encontrado.');
+    }
+
+    return this.mongoClientRepository.update(id, data);
   }
 
   async getById(id: string): Promise<Client | null> {
-    return this.clientRepository.findById(id);
+    return this.mongoClientRepository.findById(id);
   }
 
   async list(): Promise<Client[]> {
-    return this.clientRepository.findAll();
+    return this.mongoClientRepository.findAll();
   }
 
   async delete(id: string): Promise<boolean> {
-    return this.clientRepository.delete(id);
+    const existingClient = await this.mongoClientRepository.findById(id);
+    if (!existingClient) {
+      throw new Error('Cliente não encontrado.');
+    }
+
+    return this.mongoClientRepository.delete(id);
   }
 }

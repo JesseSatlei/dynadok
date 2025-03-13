@@ -6,23 +6,23 @@ import { MessageProducer } from './MessageProducer';
 export class ClientService {
   private clientUseCase: ClientUseCase;
   private cacheExpiration = 300; // 5 minutos
-  private redis = RedisClient.getInstance(); // Obtém a instância do Redis
-  private messageProducer!: MessageProducer;
+  private redis = RedisClient.getInstance();
+  private messageProducer: MessageProducer | null = null;
 
   constructor() {
     this.clientUseCase = new ClientUseCase();
-    MessageProducer.getInstance().then(instance => {
-      this.messageProducer = instance;
-    });
+    this.initializeMessageProducer();
+  }
+
+  private async initializeMessageProducer() {
+    this.messageProducer = await MessageProducer.getInstance();
   }
 
   async createClient(name: string, email: string, phone: string): Promise<Client> {
     const client = await this.clientUseCase.create(name, email, phone);
 
-    // Invalida o cache da lista de clientes
-    await this.redis.del('clients');
+    await this.redis.del('clients'); // Invalida o cache da lista de clientes
 
-    // Envia mensagem para a fila
     if (this.messageProducer) {
       await this.messageProducer.sendMessage('client_created', JSON.stringify(client));
     }
@@ -35,7 +35,7 @@ export class ClientService {
 
     if (updatedClient) {
       await this.redis.set(`client:${id}`, JSON.stringify(updatedClient), { EX: this.cacheExpiration });
-      await this.redis.del('clients'); // Invalida o cache da lista de clientes
+      await this.redis.del('clients');
     }
 
     return updatedClient;
@@ -44,13 +44,11 @@ export class ClientService {
   async getClientById(id: string): Promise<Client | null> {
     const cacheKey = `client:${id}`;
 
-    // Verifica se o cliente está no cache
     const cachedClient = await this.redis.get(cacheKey);
     if (cachedClient) {
       return JSON.parse(cachedClient);
     }
 
-    // Se não estiver no cache, busca no banco de dados
     const client = await this.clientUseCase.getById(id);
     if (client) {
       await this.redis.set(cacheKey, JSON.stringify(client), { EX: this.cacheExpiration });
@@ -62,13 +60,11 @@ export class ClientService {
   async listClients(): Promise<Client[]> {
     const cacheKey = 'clients';
 
-    // Verifica se a lista de clientes está no cache
     const cachedClients = await this.redis.get(cacheKey);
     if (cachedClients) {
       return JSON.parse(cachedClients);
     }
 
-    // Se não estiver no cache, busca no banco de dados
     const clients = await this.clientUseCase.list();
     await this.redis.set(cacheKey, JSON.stringify(clients), { EX: this.cacheExpiration });
 
@@ -80,7 +76,7 @@ export class ClientService {
 
     if (deleted) {
       await this.redis.del(`client:${id}`);
-      await this.redis.del('clients'); // Invalida o cache da lista de clientes
+      await this.redis.del('clients');
     }
 
     return deleted;

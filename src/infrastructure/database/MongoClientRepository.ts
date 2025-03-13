@@ -1,8 +1,8 @@
-import { Client } from '../../domain/entities/Client';
-import { BaseRepository } from '../../domain/repositories/BaseRepository';
-import ClientModel from './models/ClientModel';
+import { IClientRepository } from "../../domain/repositories/IClientRepository";
+import { Client } from "../../domain/entities/Client";
+import ClientModel from "./models/ClientModel";
 
-export class ClientRepository implements BaseRepository<Client> {
+export class MongoClientRepository implements IClientRepository {
   async create(data: Client): Promise<Client> {
     const client = new ClientModel(data);
     await client.save();

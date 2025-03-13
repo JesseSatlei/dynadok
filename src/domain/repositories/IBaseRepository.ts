@@ -1,4 +1,4 @@
-export interface BaseRepository<T> {
+export interface IBaseRepository<T> {
   create(data: T): Promise<T>;
   update(id: string, data: Partial<T>): Promise<T | null>;
   findById(id: string): Promise<T | null>;

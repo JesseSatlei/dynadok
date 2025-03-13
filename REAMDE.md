@@ -3,34 +3,31 @@
 │   ├── 📂 application  # Casos de uso (use-cases)
 │   │   ├── 📂 services
 │   │   │   ├── ClientService.ts
+│   │   │   ├── MessageProducer.ts
 │   │   ├── 📂 usecases
 │   │   │   ├── ClientUseCase.ts
 │   ├── 📂 domain  # Entidades e regras de negócio
 │   │   ├── 📂 entities
-│   │   │   ├── Client.ts
 │   │   │   ├── BaseEntity.ts
+│   │   │   ├── Client.ts
 │   │   ├── 📂 repositories
-│   │   │   ├── IClientRepository.ts
 │   │   │   ├── IBaseRepository.ts
+│   │   │   ├── IClientRepository.ts
 │   ├── 📂 infrastructure  # Implementações técnicas
 │   │   ├── 📂 database
-│   │   │   ├── mongo
+│   │   │   ├── models
 │   │   │   │   ├── ClientModel.ts
-│   │   │   │   ├── MongoClientRepository.ts
+│   │   │   ├── MongoClientRepository.ts
 │   │   ├── 📂 cache
 │   │   │   ├── RedisClient.ts
 │   │   ├── 📂 messaging
-│   │   │   ├── KafkaProducer.ts
-│   │   │   ├── KafkaConsumer.ts
+│   │   │   ├── MessageConsumer.ts
+│   │   │   ├── RabbitMQ.ts
 │   ├── 📂 presentation  # Interface da aplicação (controllers e rotas)
 │   │   ├── 📂 controllers
 │   │   │   ├── ClientController.ts
 │   │   ├── 📂 routes
 │   │   │   ├── clientRoutes.ts
-│   ├── 📂 config  # Configurações do projeto
-│   │   ├── env.ts
-│   │   ├── database.ts
-│   │   ├── cache.ts
 │   ├── server.ts  # Ponto de entrada da API
 ├── 📂 tests  # Testes unitários
 │   ├── 📂 application
@@ -99,6 +96,7 @@ A API estará disponível em `http://localhost:3000`
 | PUT     | /clients/:id       | Atualizar um cliente existente  |
 | GET     | /clients/:id       | Buscar um cliente por ID        |
 | GET     | /clients           | Listar todos os clientes        |
+| DELETE  | /clients/:id       | Deletar um cliente              |
 
 ## Como Rodar os Testes
 ```bash
