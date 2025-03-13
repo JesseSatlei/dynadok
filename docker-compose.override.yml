@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: node_app
+    restart: always
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    environment:
+      MONGO_URI: "mongodb://mongo_db:${MONGO_PORT}/clientdb"
+      REDIS_HOST: "redis_cache"
+      REDIS_PORT: "${REDIS_PORT}"
+      RABBITMQ_URL: "amqp://${RABBITMQ_USER}:${RABBITMQ_PASS}@rabbitmq_broker:${RABBITMQ_PORT}"
+    depends_on:
+      - mongo
+      - redis
+      - rabbitmq
