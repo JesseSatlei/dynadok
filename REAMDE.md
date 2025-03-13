@@ -31,9 +31,7 @@
 │   ├── server.ts  # Ponto de entrada da API
 ├── 📂 tests  # Testes unitários
 │   ├── 📂 application
-│   ├── 📂 domain
 │   ├── 📂 infrastructure
-│   ├── 📂 presentation
 ├── .env  # Variáveis de ambiente
 ├── .gitignore
 ├── docker-compose.yml  # Configuração dos serviços
@@ -74,8 +72,8 @@ A aplicação segue uma arquitetura modular e bem organizada:
 ## Como Rodar o Projeto
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/seu-usuario/nome-do-repo.git
-cd nome-do-repo
+git clone https://github.com/JesseSatlei/dynadok.git
+cd dynadok
 ```
 
 ### 2. Configurar variáveis de ambiente
@@ -87,7 +85,7 @@ docker-compose up --build
 ```
 
 ### 4. Testar os endpoints
-A API estará disponível em `http://localhost:3000`
+A API estará disponível em `http://localhost:3000`, deixarei um arquivo na raiz do projeto com o JSON para ser importado no postman
 
 ## Endpoints Disponíveis
 | Método  | Rota               | Descrição                        |
