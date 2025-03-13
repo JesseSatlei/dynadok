@@ -42,11 +42,15 @@ A aplicação segue uma arquitetura modular e bem organizada:
 │   │   ├── 📂 messaging
 │   │   │   ├── MessageConsumer.ts
 │   │   │   ├── RabbitMQ.ts
+│   ├── 📂 middleware  # Middlewares
+│   │   ├── errorMiddleware.ts
 │   ├── 📂 presentation  # Interface da aplicação (controllers e rotas)
 │   │   ├── 📂 controllers
 │   │   │   ├── ClientController.ts
 │   │   ├── 📂 routes
 │   │   │   ├── clientRoutes.ts
+│   ├── 📂 shared  # Arquivos que vão ser compartilhados
+│   │   ├── AppError.ts
 │   ├── server.ts  # Ponto de entrada da API
 ├── 📂 tests  # Testes unitários
 │   ├── 📂 application

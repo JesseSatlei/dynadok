@@ -6,6 +6,7 @@ import winston from 'winston';
 import { MessageConsumer } from './infrastructure/messaging/MessageConsumer';
 import clientRoutes from './presentation/routes/client.routes';
 import cors from 'cors';
+import { errorMiddleware } from './middleware/errorMiddleware';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors());
+app.use(errorMiddleware);
 
 app.use('/clients', clientRoutes);
 

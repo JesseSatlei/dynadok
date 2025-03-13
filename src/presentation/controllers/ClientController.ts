@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ClientService } from '../../application/services/ClientService';
+import { AppError } from '../../shared/AppError';
 
 export class ClientController {
   private clientService: ClientService;
@@ -14,7 +15,9 @@ export class ClientController {
       const client = await this.clientService.createClient(name, email, phone);
       res.status(201).json(client);
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (error instanceof AppError) {  // Trate o AppError aqui
+        res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(400).json({ error: 'An unknown error occurred' });
@@ -32,7 +35,9 @@ export class ClientController {
       }
       res.json(client);
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (error instanceof AppError) {  // Trate o AppError aqui
+        res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(400).json({ error: 'An unknown error occurred' });
@@ -50,7 +55,9 @@ export class ClientController {
       }
       res.json(client);
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (error instanceof AppError) {  // Trate o AppError aqui
+        res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(400).json({ error: 'An unknown error occurred' });
@@ -64,7 +71,9 @@ export class ClientController {
       res.json(clients);
     } catch (error: unknown) {
       console.log('detalhes do erro', error);
-      if (error instanceof Error) {
+      if (error instanceof AppError) {  // Trate o AppError aqui
+        res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(400).json({ error: 'An unknown error occurred' });
@@ -82,7 +91,9 @@ export class ClientController {
       }
       res.json({ message: 'Cliente removido com sucesso' });
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (error instanceof AppError) {  // Trate o AppError aqui
+        res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
       } else {
         res.status(400).json({ error: 'An unknown error occurred' });
