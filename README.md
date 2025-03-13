@@ -1,3 +1,22 @@
+# README.md
+
+# Projeto: API de Cadastro e Consulta de Clientes
+
+## Descrição
+Este projeto implementa uma API REST para cadastro e consulta de clientes, seguindo os princípios da **Clean Architecture** e **SOLID**. A aplicação utiliza **Node.js (TypeScript + Express.js)**, **MongoDB**, **Redis** para caching e **Kafka/RabbitMQ** para mensageria.
+
+## Tecnologias Utilizadas
+- **Node.js + TypeScript**
+- **Express.js** (Framework HTTP)
+- **MongoDB** (Banco de dados NoSQL)
+- **Redis** (Cache para otimizar consultas)
+- **RabbitMQ** (Mensageria para eventos assíncronos)
+- **Docker e Docker Compose** (Containerização)
+- **Jest** (Testes unitários)
+
+## Estrutura do Projeto
+A aplicação segue uma arquitetura modular e bem organizada:
+```
 📂 projeto
 ├── 📂 src
 │   ├── 📂 application  # Casos de uso (use-cases)
@@ -39,34 +58,6 @@
 ├── package.json
 ├── tsconfig.json
 ├── README.md  # Documentação do projeto
-
-# README.md
-
-# Projeto: API de Cadastro e Consulta de Clientes
-
-## Descrição
-Este projeto implementa uma API REST para cadastro e consulta de clientes, seguindo os princípios da **Clean Architecture** e **SOLID**. A aplicação utiliza **Node.js (TypeScript + Express.js)**, **MongoDB**, **Redis** para caching e **Kafka/RabbitMQ** para mensageria.
-
-## Tecnologias Utilizadas
-- **Node.js + TypeScript**
-- **Express.js** (Framework HTTP)
-- **MongoDB** (Banco de dados NoSQL)
-- **Redis** (Cache para otimizar consultas)
-- **RabbitMQ** (Mensageria para eventos assíncronos)
-- **Docker e Docker Compose** (Containerização)
-- **Jest** (Testes unitários)
-
-## Estrutura do Projeto
-A aplicação segue uma arquitetura modular e bem organizada:
-```
-/src
-  ├── application (Casos de uso)
-  ├── domain (Entidades e repositórios)
-  ├── infrastructure (Banco, cache, mensageria)
-  ├── presentation (Controllers e rotas)
-  ├── config (Configurações gerais)
-  ├── server.ts (Ponto de entrada da API)
-/tests (Testes unitários)
 ```
 
 ## Como Rodar o Projeto
