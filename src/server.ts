@@ -19,33 +19,30 @@ app.use(errorMiddleware);
 app.use('/clients', clientRoutes);
 
 const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://root:example@mongo_db:27017/clientdb'; // Atualizando para o nome do serviço mongo no Docker
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://root:example@mongo_db:27017/clientdb';
 
-// Configuração do logger
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
   transports: [new winston.transports.Console()],
 });
 
-// Função para iniciar o servidor apenas quando MongoDB e Redis estiverem conectados
 const startServer = async () => {
   try {
     await mongoose.connect(MONGO_URI);
     logger.info('✅ MongoDB conectado com sucesso!');
 
-    await RedisClient.connect(); // Usa o método atualizado que evita múltiplas conexões
+    await RedisClient.connect();
 
     app.listen(PORT, () => {
       logger.info(`🚀 Servidor rodando na porta ${PORT}`);
     });
   } catch (error) {
     logger.error('❌ Erro ao iniciar o servidor:', error);
-    process.exit(1); // Sai da aplicação em caso de erro
+    process.exit(1);
   }
 };
 
-// Iniciar consumidor de mensagens
 MessageConsumer.getInstance().then(consumer => {
   consumer.startListening();
 });

@@ -15,7 +15,7 @@ export class ClientController {
       const client = await this.clientService.createClient(name, email, phone);
       res.status(201).json(client);
     } catch (error: unknown) {
-      if (error instanceof AppError) {  // Trate o AppError aqui
+      if (error instanceof AppError) {
         res.status(error.statusCode).json({ error: error.message });
       } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
@@ -35,7 +35,7 @@ export class ClientController {
       }
       res.json(client);
     } catch (error: unknown) {
-      if (error instanceof AppError) {  // Trate o AppError aqui
+      if (error instanceof AppError) {
         res.status(error.statusCode).json({ error: error.message });
       } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
@@ -55,7 +55,7 @@ export class ClientController {
       }
       res.json(client);
     } catch (error: unknown) {
-      if (error instanceof AppError) {  // Trate o AppError aqui
+      if (error instanceof AppError) {
         res.status(error.statusCode).json({ error: error.message });
       } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
@@ -71,7 +71,7 @@ export class ClientController {
       res.json(clients);
     } catch (error: unknown) {
       console.log('detalhes do erro', error);
-      if (error instanceof AppError) {  // Trate o AppError aqui
+      if (error instanceof AppError) {
         res.status(error.statusCode).json({ error: error.message });
       } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
@@ -91,7 +91,7 @@ export class ClientController {
       }
       res.json({ message: 'Cliente removido com sucesso' });
     } catch (error: unknown) {
-      if (error instanceof AppError) {  // Trate o AppError aqui
+      if (error instanceof AppError) {
         res.status(error.statusCode).json({ error: error.message });
       } else if (error instanceof Error) {
         res.status(400).json({ error: error.message });
