@@ -83,6 +83,10 @@ Crie um arquivo `.env` na raiz do projeto e defina as configurações necessári
 ```bash
 docker-compose up --build
 ```
+Esse comando irá:
+
+Construir a imagem Docker da aplicação usando o Dockerfile.
+Criar e iniciar os containers para os serviços necessários: MongoDB, Redis e RabbitMQ.
 
 ### 4. Testar os endpoints
 A API estará disponível em `http://localhost:3000`, deixarei um arquivo na raiz do projeto com o JSON para ser importado no postman
